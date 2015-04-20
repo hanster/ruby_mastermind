@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 module Mastermind
+
+  class StubInput
+
+    def initialize(inputs)
+      @inputs = inputs
+    end
+
+    def get_user_input
+      @inputs.shift
+    end
+  end
+
   describe Game do
     let(:output) { double('output').as_null_object }
     let(:game) { Game.new(output) }
@@ -26,7 +38,7 @@ module Mastermind
     describe "#guess" do
       it "returns a random guess" do
         game.start
-        expect(game.guess).to eq("R R R R")
+        expect(game.guess).to eq("RRRR")
       end
 
       it "increments the counter to 1 when the computer makes a guess" do
@@ -49,8 +61,19 @@ module Mastermind
 
         10.times { game.guess }
 
-        expect(game.over?).to eq(true)
+        expect(game.over?).to be true
+      end
+    end
+
+    describe "#over?" do
+      it "is over when the exact matches is 4" do
+        game = Game.new(output, StubInput.new([4]))
+        game.start
+        game.get_exact_matches
+        
+        expect(game.over?).to be true
       end
     end
   end
+
 end

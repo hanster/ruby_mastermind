@@ -2,8 +2,9 @@ module Mastermind
   class Game
     attr_reader :number_of_guesses
 
-    def initialize output
+    def initialize (output, input = STDIN)
       @output = output
+      @input = input
     end
 
     def start
@@ -14,11 +15,15 @@ module Mastermind
 
     def guess
       @number_of_guesses += 1
-      return "R R R R"
+      return "RRRR"
     end
 
     def over?
-      @number_of_guesses >= 10
+      @number_of_guesses >= 10 || @exact_matches == 4
+    end
+
+    def get_exact_matches
+      @exact_matches = @input.get_user_input
     end
   end
 end
