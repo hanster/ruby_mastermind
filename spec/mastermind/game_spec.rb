@@ -69,10 +69,22 @@ module Mastermind
       it "is over when the exact matches is 4" do
         game = Game.new(output, StubInput.new([4]))
         game.start
+
+        expect(game.over?).to be false
         game.get_exact_matches
         
         expect(game.over?).to be true
       end
+
+      it "is not over if the exact matches input is not 4" do
+        game = Game.new(output, StubInput.new([0]))
+        game.start
+
+        expect(game.over?).to be false
+        game.get_exact_matches
+        expect(game.over?).to be false
+      end
+
     end
   end
 
