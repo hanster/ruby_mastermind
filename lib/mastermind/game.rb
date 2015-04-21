@@ -25,5 +25,9 @@ module Mastermind
     def get_exact_matches
       @exact_matches = @input.get_user_input
     end
+
+    def get_unexact_matches
+      @unexact_matches = @input.get_user_input
+    end
   end
 end

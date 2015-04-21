@@ -3,18 +3,21 @@ require 'spec_helper'
 module Mastermind
 
   class StubInput
+    attr_accessor :times_user_input_called, :inputs
 
-    def initialize(inputs)
-      @inputs = inputs
+    def initialize
+      self.times_user_input_called = 0
     end
 
     def get_user_input
+      self.times_user_input_called += 1
       @inputs.shift
     end
   end
 
   describe Game do
     let(:output) { double('output').as_null_object }
+    let(:input) { StubInput.new }
     let(:game) { Game.new(output) }
     
     describe "#start" do
@@ -67,24 +70,40 @@ module Mastermind
 
     describe "#over?" do
       it "is over when the exact matches is 4" do
-        game = Game.new(output, StubInput.new([4]))
+        input.inputs = [4]
+        game = Game.new(output, input)
         game.start
 
         expect(game.over?).to be false
         game.get_exact_matches
         
         expect(game.over?).to be true
+        expect(input.times_user_input_called).to eq(1)
       end
 
       it "is not over if the exact matches input is not 4" do
-        game = Game.new(output, StubInput.new([0]))
+        input.inputs = [0]
+        game = Game.new(output, input)
         game.start
 
         expect(game.over?).to be false
         game.get_exact_matches
         expect(game.over?).to be false
+        expect(input.times_user_input_called).to eq(1)
       end
 
+    end
+
+    describe "#get_unexact_matches" do
+      it "gets user input when #get_unexact_matches is called" do
+        input.inputs = [0]
+        game = Game.new(output, input)
+        game.start
+
+        expect(input.times_user_input_called).to eq(0)
+        game.get_unexact_matches
+        expect(input.times_user_input_called).to eq(1)
+      end
     end
   end
 
