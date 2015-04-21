@@ -2,9 +2,8 @@ module Mastermind
   class Game
     attr_reader :number_of_guesses
 
-    def initialize (output, input = STDIN)
-      @input = input
-      @io = IO.new(output)
+    def initialize (io)
+      @io = io
     end
 
     def start
@@ -22,11 +21,11 @@ module Mastermind
     end
 
     def get_exact_matches
-      @exact_matches = @input.get_user_input
+      @exact_matches = @io.get_exact_matches
     end
 
     def get_unexact_matches
-      @unexact_matches = @input.get_user_input
+      @unexact_matches = @io.get_unexact_matches
     end
 
   end
