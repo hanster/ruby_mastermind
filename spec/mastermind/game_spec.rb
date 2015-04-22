@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Mastermind
 
-  class StubIO
+  class StubDisplay
     attr_accessor :display_welcome_times_called, :get_exact_matches_times_called, :get_unexact_matches_times_called
 
    def initialize
@@ -34,16 +34,28 @@ module Mastermind
     end
   end
 
+  class StubAI
+    attr_reader :next_guess_times_called
+
+    def initialize
+      @next_guess_times_called = 0
+    end
+    def next_guess
+      @next_guess_times_called += 1
+    end
+  end
+
+
   describe Game do
     let(:output) { double('output').as_null_object }
-    let(:stubIO) { StubIO.new }
-    let(:game) { Game.new(stubIO) }
-    
+    let(:stubDisplay) { StubDisplay.new }
+    let(:game) { Game.new(stubDisplay) }
+
     describe "#start" do
       it "sends a welcome message when the game starts" do
-        expect(stubIO.display_welcome_times_called).to eq(0)
+        expect(stubDisplay.display_welcome_times_called).to eq(0)
         game.start
-        expect(stubIO.display_welcome_times_called).to eq(1)
+        expect(stubDisplay.display_welcome_times_called).to eq(1)
       end
 
       it "starts with a guess counter at 0" do
@@ -81,42 +93,50 @@ module Mastermind
 
         expect(game.over?).to be true
       end
+
+      xit "gets the next best guess forom the AI" do
+        game = Game.new(stubDisplay, stubAI)
+        game.start
+        
+        game.guess
+
+      end
     end
 
     describe "#over?" do
       it "is over when the exact matches is 4" do
-        stubIO.set_exact_matches(4)
+        stubDisplay.set_exact_matches(4)
         game.start
 
         expect(game.over?).to be false
         game.get_exact_matches
 
         expect(game.over?).to be true
-        expect(stubIO.get_exact_matches_times_called).to eq(1)
+        expect(stubDisplay.get_exact_matches_times_called).to eq(1)
       end
 
       it "is not over if the exact matches input is not 4" do
-        stubIO.set_exact_matches(0)
+        stubDisplay.set_exact_matches(0)
         game.start
 
         expect(game.over?).to be false
         game.get_exact_matches
         expect(game.over?).to be false
-        expect(stubIO.get_exact_matches_times_called).to eq(1)
+        expect(stubDisplay.get_exact_matches_times_called).to eq(1)
       end
 
     end
 
     describe "#get_unexact_matches" do
       it "gets user input when #get_unexact_matches is called" do
-        stubIO.set_unexact_matches(0)
+        stubDisplay.set_unexact_matches(0)
         game.start
 
-        expect(stubIO.get_unexact_matches_times_called).to eq(0)
+        expect(stubDisplay.get_unexact_matches_times_called).to eq(0)
         game.get_unexact_matches
-        expect(stubIO.get_unexact_matches_times_called).to eq(1)
+        expect(stubDisplay.get_unexact_matches_times_called).to eq(1)
       end
     end
-  end
 
+  end
 end

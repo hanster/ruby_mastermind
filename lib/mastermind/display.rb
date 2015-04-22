@@ -1,6 +1,6 @@
 module Mastermind
 
-  class IO
+  class Display
 
     def initialize(output = STDOUT, input = STDIN)
       @output = output
