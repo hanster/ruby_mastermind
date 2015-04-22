@@ -2,7 +2,8 @@ module Mastermind
   class Game
     attr_reader :number_of_guesses
 
-    def initialize (display)
+    def initialize (display, ai = RandomAI.new)
+      @ai_guesser = ai
       @display = display
       @exact_matches = 0
       @unexact_matches = 0
@@ -13,21 +14,19 @@ module Mastermind
       @number_of_guesses = 0
     end
 
+    def play_turn
+      next_guess = @ai_guesser.next_guess(@exact_matches, @unexact_matches)
+      @exact_matches = @display.get_exact_matches
+      @unexact_matches = @display.get_unexact_matches
+    end
+
     def guess
       @number_of_guesses += 1
-      return "RRRR"
+      return @ai_guesser.next_guess(@exact_matches, @unexact_matches)
     end
 
-    def over?
-      @number_of_guesses >= 10 || @exact_matches == 4
-    end
-
-    def get_exact_matches
-      @exact_matches = @display.get_exact_matches
-    end
-
-    def get_unexact_matches
-      @unexact_matches = @display.get_unexact_matches
+    def over? (number_of_guesses, exact_matches)
+      number_of_guesses >= 10 || exact_matches == 4
     end
 
   end
