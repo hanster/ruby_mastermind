@@ -2,14 +2,14 @@ module Mastermind
   class Game
     attr_reader :number_of_guesses
 
-    def initialize (output, input = STDIN)
-      @output = output
-      @input = input
+    def initialize (display)
+      @display = display
+      @exact_matches = 0
+      @unexact_matches = 0
     end
 
     def start
-      @output.puts("Welcome to Mastermind!")  
-      @output.puts("Start game? Make sure you have a code ready!")
+      @display.display_welcome
       @number_of_guesses = 0
     end
 
@@ -23,11 +23,13 @@ module Mastermind
     end
 
     def get_exact_matches
-      @exact_matches = @input.get_user_input
+      @exact_matches = @display.get_exact_matches
     end
 
     def get_unexact_matches
-      @unexact_matches = @input.get_user_input
+      @unexact_matches = @display.get_unexact_matches
     end
+
   end
+  
 end

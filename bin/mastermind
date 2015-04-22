@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'mastermind'
-game = Mastermind::Game.new(STDOUT)
+display = Mastermind::Display.new
+game = Mastermind::Game.new(display)
 game.start
+game.get_exact_matches
