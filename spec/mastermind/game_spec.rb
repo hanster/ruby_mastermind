@@ -47,7 +47,6 @@ module Mastermind
 
 
   describe Game do
-    let(:output) { double('output').as_null_object }
     let(:stubDisplay) { StubDisplay.new }
     let(:game) { Game.new(stubDisplay) }
 

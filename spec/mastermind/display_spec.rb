@@ -3,35 +3,35 @@ require 'spec_helper'
 module Mastermind
 
   describe Display do
-    let(:output) { double('output').as_null_object }
+    let(:output) { StringIO.new }
     let(:input) { StubInput.new }
     let(:display) { Display.new(output, input) }
 
     describe "#display_welcome" do
       it "sends a welcome message" do
-        expect(output).to receive(:puts).with("Welcome to Mastermind!")
         display.display_welcome
+        expect(output.string).to start_with("Welcome to Mastermind!")
       end
 
       it "prompts to computer to make a guess" do
-        expect(output).to receive(:puts).with("Start game? Make sure you have a code ready!")
         display.display_welcome
+        expect(output.string).to include("Start game? Make sure you have a code ready!")
       end
     end
 
     describe "#get_exact_matches" do
       it "outputs a prompt before getting user input" do
         input.inputs = [4]
-        expect(output).to receive(:puts).with("Enter the exact number of matches: ")
         expect(display.get_exact_matches).to eq(4)
+        expect(output.string).to start_with("Enter the exact number of matches: ")
       end
     end
 
     describe "#get_unexact_matches" do
       it "outputs a prompt before getting user input" do
         input.inputs = [4]
-        expect(output).to receive(:puts).with("Enter the unexact number of matches: ")
         expect(display.get_unexact_matches).to eq(4)
+        expect(output.string).to start_with("Enter the unexact number of matches: ")
       end
     end
 

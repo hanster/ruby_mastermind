@@ -1,2 +1,2 @@
 require 'mastermind/game'
-require 'mastermind/io'
+require 'mastermind/display'
