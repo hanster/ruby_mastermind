@@ -13,6 +13,12 @@ module Mastermind
         expect(output.string).to start_with("Welcome to Mastermind!")
       end
 
+      it "displays the guess message" do
+        guess = "RRRR"
+        display.guess_message(guess)
+        expect(output.string).to start_with("Player guess is: " + guess)
+      end
+
       it "prompts to computer to make a guess" do
         display.display_welcome
         expect(output.string).to include("Start game? Make sure you have a code ready!")
