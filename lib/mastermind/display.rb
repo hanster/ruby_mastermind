@@ -18,8 +18,8 @@ module Mastermind
       @output.puts(START_PROMPT)
     end
 
-    def guess_message(guess)
-      @output.puts(GUESS_MESSAGE+ guess)
+    def guess_message(guess, number_of_guesses)
+      @output.puts(number_of_guesses.to_s + ': ' + GUESS_MESSAGE + guess)
     end
 
     def get_exact_matches

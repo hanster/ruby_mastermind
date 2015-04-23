@@ -31,7 +31,7 @@ module Mastermind
       @display_welcome_times_called += 1
     end
 
-    def guess_message(guess)
+    def guess_message(guess, guess_number)
       @guess_message_times_called += 1
     end
 
@@ -73,42 +73,6 @@ module Mastermind
       end
     end
 
-    describe "#guess" do
-      it "returns a random guess" do
-        game = Game.new(stub_display, stub_ai)
-        game.start
-        expect(game.guess).to eq("RRRR")
-      end
-
-      it "increments the counter to 1 when the computer makes a guess" do
-        game.start
-        game.guess
-
-        expect(game.number_of_guesses).to eq(1)
-      end
-
-      it "increments the counter each time the computer makes a guess" do
-        game.start
-        game.guess
-        game.guess
-
-        expect(game.number_of_guesses).to eq(2)
-      end
-
-      it "is game over when there are 10 guesses" do
-        expect(game.over?(10, 0)).to be true
-      end
-
-      it "gets the next best guess forom the AI" do
-        game = Game.new(stub_display, stub_ai)
-        game.start
-
-        expect(stub_ai.next_guess_times_called).to eq(0)
-        game.guess
-        expect(stub_ai.next_guess_times_called).to eq(1)
-      end
-    end
-
     describe "#over?" do
       it "is over when the exact matches is 4" do
         expect(game.over?(1, 4)).to be true
@@ -116,6 +80,10 @@ module Mastermind
 
       it "is not over if the exact matches input is not 4" do
         expect(game.over?(1, 0)).to be false
+      end
+
+      it "is game over when there are 10 guesses" do
+        expect(game.over?(10, 0)).to be true
       end
 
     end
@@ -151,6 +119,12 @@ module Mastermind
         expect(stub_display.get_unexact_matches_times_called).to eq(1)
       end
 
+    end
+
+    it "is running if the game has just started" do
+      game.start
+
+      expect(game.running?).to be true
     end
   end
 end
