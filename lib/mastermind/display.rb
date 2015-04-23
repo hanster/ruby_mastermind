@@ -24,12 +24,12 @@ module Mastermind
 
     def get_exact_matches
       @output.puts(EXACT_MATCH_PROMPT)
-      @input.gets
+      @input.gets.to_i
     end
 
     def get_unexact_matches
       @output.puts(UNEXACT_MATCH_PROMPT)
-      @input.gets
+      @input.gets.to_i
     end
   end
 

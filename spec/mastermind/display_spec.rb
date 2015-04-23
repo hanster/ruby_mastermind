@@ -28,7 +28,7 @@ module Mastermind
 
     describe "#get_exact_matches" do
       it "outputs a prompt before getting user input" do
-        input.inputs = [4]
+        input.inputs = ['4']
         expect(display.get_exact_matches).to eq(4)
         expect(output.string).to start_with("Enter the exact number of matches: ")
       end
@@ -36,7 +36,7 @@ module Mastermind
 
     describe "#get_unexact_matches" do
       it "outputs a prompt before getting user input" do
-        input.inputs = [4]
+        input.inputs = ['4']
         expect(display.get_unexact_matches).to eq(4)
         expect(output.string).to start_with("Enter the unexact number of matches: ")
       end
