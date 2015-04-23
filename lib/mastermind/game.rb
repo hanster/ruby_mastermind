@@ -1,5 +1,7 @@
 module Mastermind
   class Game
+    MAX_GUESSES = 10
+    EXACT_MATCHES_WIN = 4
     attr_reader :number_of_guesses
 
     def initialize (display = Display.new, ai = RandomAI.new)
@@ -23,7 +25,7 @@ module Mastermind
     end
 
     def over? (number_of_guesses, exact_matches)
-      number_of_guesses >= 10 || exact_matches == 4
+      number_of_guesses >= MAX_GUESSES || exact_matches == EXACT_MATCHES_WIN
     end
 
     def running?

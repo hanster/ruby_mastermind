@@ -75,7 +75,7 @@ module Mastermind
 
     describe "#over?" do
       it "is over when the exact matches is 4" do
-        expect(game.over?(1, 4)).to be true
+        expect(game.over?(1, Game::EXACT_MATCHES_WIN)).to be true
       end
 
       it "is not over if the exact matches input is not 4" do
@@ -83,7 +83,7 @@ module Mastermind
       end
 
       it "is game over when there are 10 guesses" do
-        expect(game.over?(10, 0)).to be true
+        expect(game.over?(Game::MAX_GUESSES, 0)).to be true
       end
 
     end
