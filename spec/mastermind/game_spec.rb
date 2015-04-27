@@ -1,39 +1,6 @@
 require 'spec_helper'
 
 module Mastermind
-
-  class StubDisplay
-    attr_accessor :display_welcome_times_called, :get_exact_matches_times_called, :get_unexact_matches_times_called
-
-   def initialize
-     @display_welcome_times_called = 0
-     @get_unexact_matches_times_called = 0
-     @get_exact_matches_times_called = 0
-   end
-
-    def display_welcome
-      @display_welcome_times_called += 1
-    end
-
-    def get_exact_matches
-      @get_exact_matches_times_called += 1
-      @exact_matches
-    end
-
-    def get_unexact_matches
-      @get_unexact_matches_times_called += 1
-      @unexact_matches
-    end
-    
-    def set_exact_matches(number)
-      @exact_matches = number
-    end
-    
-    def set_unexact_matches(number)
-      @unexact_matches = number
-    end
-  end
-
   class StubAI
     attr_reader :next_guess_times_called
 
@@ -46,6 +13,46 @@ module Mastermind
     end
   end
 
+  class StubDisplay
+
+    attr_accessor :display_welcome_times_called, 
+      :get_exact_matches_times_called, 
+      :get_unexact_matches_times_called,
+      :guess_message_times_called
+
+    def initialize
+      @display_welcome_times_called = 0
+      @guess_message_times_called = 0
+      @get_unexact_matches_times_called = 0
+      @get_exact_matches_times_called = 0
+    end
+
+    def display_welcome
+      @display_welcome_times_called += 1
+    end
+
+    def guess_message(guess)
+      @guess_message_times_called += 1
+    end
+
+    def get_exact_matches
+      @get_exact_matches_times_called += 1
+      @exact_matches
+    end
+
+    def get_unexact_matches
+      @get_unexact_matches_times_called += 1
+      @unexact_matches
+    end
+
+    def set_exact_matches(number)
+      @exact_matches = number
+    end
+
+    def set_unexact_matches(number)
+      @unexact_matches = number
+    end
+  end
 
   describe Game do
     let(:stub_ai) { StubAI.new }
@@ -95,7 +102,7 @@ module Mastermind
       it "gets the next best guess forom the AI" do
         game = Game.new(stub_display, stub_ai)
         game.start
-        
+
         expect(stub_ai.next_guess_times_called).to eq(0)
         game.guess
         expect(stub_ai.next_guess_times_called).to eq(1)
@@ -120,7 +127,14 @@ module Mastermind
         game.play_turn
         expect(stub_ai.next_guess_times_called).to eq(1)
       end
-      
+
+      it "calls display.guess_message" do
+        game = Game.new(stub_display, stub_ai)
+
+        game.play_turn
+        expect(stub_display.guess_message_times_called).to eq(1)
+      end
+
       it "calls display.get_exact_matches" do
         stub_display.set_exact_matches(0)
         game = Game.new(stub_display, stub_ai)
@@ -129,7 +143,6 @@ module Mastermind
         expect(stub_display.get_exact_matches_times_called).to eq(1)
       end
 
- 
       it "calls display.get_unexact_matches" do
         stub_display.set_unexact_matches(0)
         game = Game.new(stub_display, stub_ai)
