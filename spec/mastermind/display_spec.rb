@@ -15,8 +15,9 @@ module Mastermind
 
       it "displays the guess message" do
         guess = "RRRR"
-        display.guess_message(guess)
-        expect(output.string).to start_with("Player guess is: " + guess)
+        number_of_guesses = 1
+        display.guess_message(guess, number_of_guesses)
+        expect(output.string).to start_with("1: Player guess is: " + guess)
       end
 
       it "prompts to computer to make a guess" do
@@ -27,7 +28,7 @@ module Mastermind
 
     describe "#get_exact_matches" do
       it "outputs a prompt before getting user input" do
-        input.inputs = [4]
+        input.inputs = ['4']
         expect(display.get_exact_matches).to eq(4)
         expect(output.string).to start_with("Enter the exact number of matches: ")
       end
@@ -35,7 +36,7 @@ module Mastermind
 
     describe "#get_unexact_matches" do
       it "outputs a prompt before getting user input" do
-        input.inputs = [4]
+        input.inputs = ['4']
         expect(display.get_unexact_matches).to eq(4)
         expect(output.string).to start_with("Enter the unexact number of matches: ")
       end

@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'mastermind'
 display = Mastermind::Display.new
-game = Mastermind::Game.new(display)
-game.start
-game.get_exact_matches
+ai = Mastermind::RandomAI.new
+game = Mastermind::Game.new(display,ai)
+game_loop = Mastermind::GameLoop.new(game)
+game_loop.run
