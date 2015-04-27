@@ -7,21 +7,21 @@ module Mastermind
     def initialize (display = Display.new, ai = RandomAI.new)
       @ai_guesser = ai
       @display = display
-      @exact_matches = 0
-      @unexact_matches = 0
+      @current_exact_matches = 0
+      @current_unexact_matches = 0
       @number_of_guesses = 0
     end
 
     def start
-      @display.display_welcome
+      display.display_welcome
       @number_of_guesses = 0
     end
 
     def play_turn
-      @next_guess = guess
-      @display.guess_message(@next_guess, @number_of_guesses)
-      @exact_matches = @display.get_exact_matches
-      @unexact_matches = @display.get_unexact_matches
+      next_guess = guess
+      display.guess_message(next_guess, number_of_guesses)
+      current_exact_matches = display.get_exact_matches
+      current_unexact_matches = display.get_unexact_matches
     end
 
     def over? (number_of_guesses, exact_matches)
@@ -29,14 +29,17 @@ module Mastermind
     end
 
     def running?
-      not over?(@number_of_guesses, @exact_matches)
+      !over?(number_of_guesses, current_exact_matches)
     end
 
     private
 
+    attr_reader :display, :ai_guesser, 
+      :current_exact_matches, :current_unexact_matches
+
     def guess
       @number_of_guesses += 1
-      @ai_guesser.next_guess(@exact_matches, @unexact_matches)
+      ai_guesser.next_guess(current_exact_matches, current_unexact_matches)
     end
 
   end

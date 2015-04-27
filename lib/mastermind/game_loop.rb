@@ -8,11 +8,14 @@ module Mastermind
 
     def run
       @game.start
-      while @game.running?
-        @game.play_turn
+      while game.running?
+        game.play_turn
       end
     end
 
+    private 
+
+    attr_reader :game
   end
 
 end
