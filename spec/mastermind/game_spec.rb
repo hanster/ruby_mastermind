@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'mastermind/game'
 
 module Mastermind
   class StubAI
