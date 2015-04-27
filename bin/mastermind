@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby -w
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'mastermind'
+
+require 'mastermind/display'
+require 'mastermind/random_ai'
+require 'mastermind/game'
+require 'mastermind/game_loop'
+
 display = Mastermind::Display.new
 ai = Mastermind::RandomAI.new
 game = Mastermind::Game.new(display,ai)

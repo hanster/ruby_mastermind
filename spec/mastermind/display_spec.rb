@@ -1,10 +1,12 @@
 require 'spec_helper'
+require 'mastermind/display'
+require 'mastermind/mock/input'
 
 module Mastermind
 
   describe Display do
     let(:output) { StringIO.new }
-    let(:input) { StubInput.new }
+    let(:input) { Mastermind::Mock::Input.new }
     let(:display) { Display.new(output, input) }
 
     describe "#display_welcome" do
@@ -43,18 +45,4 @@ module Mastermind
     end
 
   end
-
-  class StubInput
-    attr_accessor :times_user_input_called, :inputs
-
-    def initialize
-      self.times_user_input_called = 0
-    end
-
-    def gets
-      self.times_user_input_called += 1
-      @inputs.shift
-    end
-  end
-
 end

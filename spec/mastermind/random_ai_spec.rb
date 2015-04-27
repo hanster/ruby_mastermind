@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'mastermind/random_ai.rb'
 
 module Mastermind
 

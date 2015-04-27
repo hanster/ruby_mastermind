@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'mastermind/game_loop'
 
 module Mastermind
 
@@ -33,8 +34,15 @@ module Mastermind
     let (:game) { TestGame.new }
     let(:game_loop) { GameLoop.new(game) }
 
+    def set_up_number_times_to_loop(game, num_loops)
+      running_loop = [false]
+      num_loops.times { running_loop.unshift(true) }
+
+      game.running = running_loop
+    end
+
     it "does nothing when the game is stopped" do
-      game.running = [false]
+      set_up_number_times_to_loop(game, 0)
 
       game_loop.run
 
@@ -43,7 +51,7 @@ module Mastermind
     end
     
     it "runs play_turn once before the game is stopped" do
-      game.running = [true, false]
+      set_up_number_times_to_loop(game, 1)
 
       game_loop.run
 
@@ -52,7 +60,7 @@ module Mastermind
     end
     
     it "plays a turn until the game is no longer running" do
-      game.running = [true, true, false]
+      set_up_number_times_to_loop(game, 2)
       
       game_loop.run
 
@@ -60,7 +68,7 @@ module Mastermind
     end
 
     it "starts the game before the game loop" do
-      game.running = [false]
+      set_up_number_times_to_loop(game, 0)
 
       game_loop.run
 
