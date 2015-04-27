@@ -3,7 +3,7 @@ require 'spec_helper'
 module Mastermind
   module Mock
 
-    class MockInput
+    class Input
       attr_accessor :times_user_input_called, :inputs
 
       def initialize
@@ -15,7 +15,6 @@ module Mastermind
         @inputs.shift
       end
     end
-
 
   end
 end

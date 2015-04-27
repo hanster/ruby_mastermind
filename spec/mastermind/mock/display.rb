@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Mastermind
   module Mock
-    class MockDisplay
+    class Display
 
       attr_accessor :display_welcome_times_called, 
         :get_exact_matches_times_called, 

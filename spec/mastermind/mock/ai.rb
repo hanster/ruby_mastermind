@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Mastermind
   module Mock
-    class MockAI
+    class AI
       attr_reader :next_guess_times_called
 
       def initialize

@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'mastermind/display'
-require 'mastermind/mock/mock_input'
+require 'mastermind/mock/input'
 
 module Mastermind
 
   describe Display do
     let(:output) { StringIO.new }
-    let(:input) { Mastermind::Mock::MockInput.new }
+    let(:input) { Mastermind::Mock::Input.new }
     let(:display) { Display.new(output, input) }
 
     describe "#display_welcome" do

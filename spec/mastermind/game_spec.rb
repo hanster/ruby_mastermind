@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'mastermind/game'
-require 'mastermind/mock/mock_ai'
-require 'mastermind/mock/mock_display'
+require 'mastermind/mock/ai'
+require 'mastermind/mock/display'
 
 module Mastermind
   describe Game do
-    let(:mock_ai) { Mastermind::Mock::MockAI.new }
-    let(:mock_display) { Mastermind::Mock::MockDisplay.new }
+    let(:mock_ai) { Mastermind::Mock::AI.new }
+    let(:mock_display) { Mastermind::Mock::Display.new }
     let(:game) { Game.new(mock_display) }
 
     describe "#start" do
