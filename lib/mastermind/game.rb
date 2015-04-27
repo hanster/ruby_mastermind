@@ -22,7 +22,6 @@ module Mastermind
       display.guess_message(next_guess, number_of_guesses)
       @current_exact_matches = display.get_exact_matches
       @current_unexact_matches = display.get_unexact_matches
-      
     end
 
     def over? (number_of_guesses, exact_matches)
