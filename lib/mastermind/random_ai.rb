@@ -1,3 +1,5 @@
+require 'mastermind/guess'
+
 module Mastermind
 
   class RandomAI
@@ -12,8 +14,4 @@ module Mastermind
 
   end
 
-  class Guess
-    COLOURS = ['R', 'G', 'O', 'Y', 'B', 'P']
-
-  end
 end

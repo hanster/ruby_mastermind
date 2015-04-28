@@ -11,6 +11,12 @@ module Mastermind
       total_matches(code, guess) - exact_match_count(code, guess)
     end
 
+    def score(code, guess)
+      score = []
+      score.push(exact_match_count(code, guess))
+      score.push(unexact_match_count(code, guess))
+    end
+
     private
 
     def total_matches(code, guess)
@@ -28,7 +34,6 @@ module Mastermind
     def exact_match?(code, guess, index)
       code[index] == guess[index]
     end
-
 
     def delete_first_match(code, letter)
       code.delete_at(code.index(letter)) if (code.index(letter))

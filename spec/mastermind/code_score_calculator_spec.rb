@@ -47,5 +47,24 @@ module Mastermind
       end
 
     end
+
+    describe "#score" do
+      it "returns [0, 0] when no matches" do
+        expect(code_score_calculator.score('RRRR', 'YYYY')).to eq([0, 0])
+      end
+
+      it "returns [4, 0] when all are exact matches" do
+        expect(code_score_calculator.score('RRRR', 'RRRR')).to eq([4, 0])
+      end
+
+      it "returns [0, 4] when all are unexact matches" do
+        expect(code_score_calculator.score('RYOP', 'POYR')).to eq([0, 4])
+      end
+
+      it "returns [1, 3] when 1 exact and 3 unexact matches" do
+        expect(code_score_calculator.score('RYOP', 'YORP')).to eq([1, 3])
+      end
+
+    end
   end
 end
