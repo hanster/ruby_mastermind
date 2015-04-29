@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'mastermind/code_score_calculator'
 
 module Mastermind
-
   describe CodeScoreCalculator do
-    
     let(:code_score_calculator) { CodeScoreCalculator.new }
 
     describe "#exact_match_count" do
@@ -45,7 +43,6 @@ module Mastermind
       it "returns 2" do
         expect(code_score_calculator.unexact_match_count('RBYO'.split(''), 'PRBG'.split(''))).to eq(2)
       end
-
     end
 
     describe "#score" do
@@ -64,7 +61,6 @@ module Mastermind
       it "returns [1, 3] when 1 exact and 3 unexact matches" do
         expect(code_score_calculator.score('RYOP'.split(''), 'YORP'.split(''))).to eq([1, 3])
       end
-
     end
   end
 end

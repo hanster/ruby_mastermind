@@ -10,11 +10,6 @@ module Mastermind
       expect(ai.next_guess(0, 0)).to eq('RRGG'.split(''))
     end
 
-    it "initially start with all permutations available" do
-      ai = MinimaxAi.new
-      expect(ai.available_permutations.count).to eq(1296)
-    end
-
     it "filter out all from the set that will not have the same feedback as the guess" do
       available_guesses = ['RRRR'.split(''), 'BBBR'.split(''), 'RBBB'.split('')]
       guess = 'BBBB'.split('')
@@ -75,7 +70,7 @@ module Mastermind
       guess = 'BBBB'.split('')
 
       ai = MinimaxAi.new
-      min_number_eliminated = ai.min_number_eliminated_from_all_possible_feedback(available_guesses, guess)
+      min_number_eliminated = ai.min_number_eliminated_from_all_possible_feedback(available_guesses, guess, 0)
 
       expect(min_number_eliminated).to eq(1)
     end

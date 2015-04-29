@@ -53,20 +53,20 @@ module Mastermind
         expect(mock_display.guess_message_times_called).to eq(1)
       end
 
-      it "calls display.get_exact_matches" do
+      it "calls display.prompt_exact_matches" do
         mock_display.set_exact_matches(0)
         game = Game.new(mock_display, mock_ai)
 
         game.play_turn
-        expect(mock_display.get_exact_matches_times_called).to eq(1)
+        expect(mock_display.prompt_exact_matches_times_called).to eq(1)
       end
 
-      it "calls display.get_unexact_matches" do
+      it "calls display.prompt_unexact_matches" do
         mock_display.set_unexact_matches(0)
         game = Game.new(mock_display, mock_ai)
 
         game.play_turn
-        expect(mock_display.get_unexact_matches_times_called).to eq(1)
+        expect(mock_display.prompt_unexact_matches_times_called).to eq(1)
       end
 
     end

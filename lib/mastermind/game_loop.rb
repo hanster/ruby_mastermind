@@ -1,7 +1,5 @@
 module Mastermind
-
   class GameLoop
-
     def initialize(game)
       @game = game
     end
@@ -17,5 +15,4 @@ module Mastermind
 
     attr_reader :game
   end
-
 end

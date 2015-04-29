@@ -1,8 +1,7 @@
 module Mastermind
   class CodeScoreCalculator
-
     def exact_match_count(code, guess)
-      (0..(guess.length - 1)).reduce(0) do |count, index|
+      (0..3).reduce(0) do |count, index|
         count + (code[index] == guess[index] ? 1 : 0)
       end
     end
@@ -13,31 +12,24 @@ module Mastermind
 
     def score(code, guess)
       score = []
-      score.push(exact_match_count(code, guess))
-      score.push(unexact_match_count(code, guess))
+      exact_count = exact_match_count(code, guess)
+      score.push(exact_count)
+      score.push(total_matches(code, guess) - exact_count)
     end
 
     private
 
     def total_matches(code, guess)
-      count = 0
       code_array = code.dup
-      (0..(guess.length - 1)).each do |index|
-        if (code_array.include?(guess[index]))
-            count += 1
-            delete_first_match(code_array, guess[index])
+      count = 0
+      (0..3).each do |index|
+        match_index = code_array.index(guess[index])
+        if (match_index)
+          code_array.delete_at(match_index)
+          count += 1
         end
       end
       count
     end
-
-    def exact_match?(code, guess, index)
-      code[index] == guess[index]
-    end
-
-    def delete_first_match(code, letter)
-      code.delete_at(code.index(letter)) if (code.index(letter))
-    end
-
   end
 end

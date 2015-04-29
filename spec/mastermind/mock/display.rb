@@ -4,16 +4,16 @@ module Mastermind
   module Mock
     class Display
 
-      attr_accessor :display_welcome_times_called, 
-        :get_exact_matches_times_called, 
-        :get_unexact_matches_times_called,
+      attr_accessor :display_welcome_times_called,
+        :prompt_exact_matches_times_called,
+        :prompt_unexact_matches_times_called,
         :guess_message_times_called
 
       def initialize
         @display_welcome_times_called = 0
         @guess_message_times_called = 0
-        @get_unexact_matches_times_called = 0
-        @get_exact_matches_times_called = 0
+        @prompt_unexact_matches_times_called = 0
+        @prompt_exact_matches_times_called = 0
       end
 
       def display_welcome
@@ -24,13 +24,13 @@ module Mastermind
         @guess_message_times_called += 1
       end
 
-      def get_exact_matches
-        @get_exact_matches_times_called += 1
+      def prompt_exact_matches
+        @prompt_exact_matches_times_called += 1
         @exact_matches
       end
 
-      def get_unexact_matches
-        @get_unexact_matches_times_called += 1
+      def prompt_unexact_matches
+        @prompt_unexact_matches_times_called += 1
         @unexact_matches
       end
 
