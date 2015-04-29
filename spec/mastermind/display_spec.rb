@@ -18,7 +18,7 @@ module Mastermind
       it "displays the guess message" do
         guess = "RRRR"
         number_of_guesses = 1
-        display.guess_message(guess, number_of_guesses)
+        display.guess_message(guess.split(''), number_of_guesses)
         expect(output.string).to start_with("1: Player guess is: " + guess)
       end
 

@@ -19,7 +19,7 @@ module Mastermind
     end
 
     def guess_message(guess, number_of_guesses)
-      output.puts(number_of_guesses.to_s + ': ' + GUESS_MESSAGE + guess)
+      output.puts(number_of_guesses.to_s + ': ' + GUESS_MESSAGE + guess.join(''))
     end
 
     def get_exact_matches

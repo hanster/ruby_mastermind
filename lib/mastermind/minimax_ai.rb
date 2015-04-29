@@ -1,5 +1,6 @@
 require 'mastermind/guess'
 require 'mastermind/code_score_calculator'
+require 'ruby-prof'
 
 module Mastermind
   class MinimaxAi
@@ -7,7 +8,7 @@ module Mastermind
     def initialize
       @initial_guess = true
       @set_of_guesses = Guess.get_all_permutations
-      @current_guess = "RRGG"
+      @current_guess = "RRGG".split('')
     end
 
     def next_guess(exact_matches, unexact_matches)
@@ -23,7 +24,7 @@ module Mastermind
 
       #work out minimax score for each in the total set
       minimax_scores = Hash.new
-      Guess.get_all_permutations.each do |guess|
+      @set_of_guesses.each do |guess|
         minimax_scores[guess] = min_number_eliminated_from_all_possible_feedback(set_of_guesses, guess)
       end
 
@@ -33,7 +34,6 @@ module Mastermind
       #choose one from the set if possible
       best_candidates_in_set = best_candidates & set_of_guesses
 
-      puts best_candidates_in_set.to_s
       if best_candidates_in_set.count > 0
         @current_guess = best_candidates_in_set[0]
       else
@@ -41,7 +41,7 @@ module Mastermind
       end
 
       #else choose other with max score
-      @current_guess = @current_guess.to_s
+      @current_guess 
     end
 
     def select_best_candidates(minimax_scores)
@@ -70,17 +70,9 @@ module Mastermind
     end
 
     def min_number_eliminated_from_all_possible_feedback(available_guesses, guess)
-      possible_feedback = [
-        [0, 0], [0, 1], [0, 2], [0, 3], [0, 4],
-        [1, 0], [1, 1], [1, 2], [1, 3],
-        [2, 0], [2, 1], [2, 2],
-        [3, 0],
-        [4, 0]
-      ]
-
       min_eliminated = 1296
 
-      possible_feedback.each do |feedback|
+      Guess::POSSIBLE_FEEDBACK.each do |feedback|
         this_min = number_eliminated(available_guesses, feedback, guess)
         if this_min < min_eliminated
           min_eliminated = this_min

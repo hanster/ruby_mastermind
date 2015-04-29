@@ -3,7 +3,7 @@ module Mastermind
 
     def exact_match_count(code, guess)
       (0..(guess.length - 1)).reduce(0) do |count, index|
-        count + (exact_match?(code, guess, index) ? 1 : 0)
+        count + (code[index] == guess[index] ? 1 : 0)
       end
     end
 
@@ -21,7 +21,7 @@ module Mastermind
 
     def total_matches(code, guess)
       count = 0
-      code_array = code.split('')
+      code_array = code.dup
       (0..(guess.length - 1)).each do |index|
         if (code_array.include?(guess[index]))
             count += 1
