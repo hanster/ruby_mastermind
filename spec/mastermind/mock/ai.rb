@@ -8,7 +8,7 @@ module Mastermind
       def initialize
         @next_guess_times_called = 0
       end
-      def next_guess(prev_exact_matches, prev_unexact_matches)
+      def next_guess(feedback)
         @next_guess_times_called += 1
         "RRRR"
       end
