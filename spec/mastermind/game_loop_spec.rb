@@ -4,13 +4,14 @@ require 'mastermind/game_loop'
 module Mastermind
   class TestGame
     attr_reader :turn_played
-    attr_reader :play_turn_count, :start_count
+    attr_reader :play_turn_count, :start_count, :end_count
     attr_accessor :running
 
     def initialize
       @turn_played = false
       @play_turn_count = 0
       @start_count = 0
+      @end_count = 0
     end
 
     def play_turn
@@ -24,6 +25,10 @@ module Mastermind
     
     def start
       @start_count += 1
+    end
+
+    def end_game
+      @end_count += 1
     end
   end
 
@@ -65,6 +70,13 @@ module Mastermind
       game_loop.run
 
       expect(game.start_count).to be (1)
+    end
+
+    it "calls the end method on the game when out of the game loop" do
+      set_up_number_times_to_loop(game, 1)
+      game_loop.run
+
+      expect(game.end_count).to be (1)
     end
   end
 end

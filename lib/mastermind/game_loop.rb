@@ -9,6 +9,7 @@ module Mastermind
       while game.running?
         game.play_turn
       end
+      @game.end_game
     end
 
     private 
