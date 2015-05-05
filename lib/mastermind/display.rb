@@ -5,6 +5,7 @@ module Mastermind
     EXACT_MATCH_PROMPT = "Enter the exact number of matches: "
     UNEXACT_MATCH_PROMPT = "Enter the unexact number of matches: "
     GUESS_MESSAGE = "Player guess is: "
+    INVALID_INPUT_MESSAGE = "Invalid input. 0-4 are valid."
 
     def initialize(output = STDOUT, input = STDIN)
       @output = output
@@ -21,17 +22,31 @@ module Mastermind
     end
 
     def prompt_exact_matches
-      output.puts(EXACT_MATCH_PROMPT)
-      input.gets.to_i
+      prompt_number_input(EXACT_MATCH_PROMPT)
     end
 
     def prompt_unexact_matches
-      output.puts(UNEXACT_MATCH_PROMPT)
-      input.gets.to_i
+      prompt_number_input(UNEXACT_MATCH_PROMPT)
     end
 
     private
 
     attr_reader :output, :input
+
+    def display_invalid_input
+      output.puts(INVALID_INPUT_MESSAGE)
+    end
+
+    def prompt_number_input(prompt)
+      output.puts(prompt)
+      value = validate_input(input.gets)
+      return value if value
+      display_invalid_input
+      prompt_number_input(prompt)
+    end
+
+    def validate_input(input_value)
+      input_value[/^[0-4]$/] && input_value.to_i
+    end
   end
 end
