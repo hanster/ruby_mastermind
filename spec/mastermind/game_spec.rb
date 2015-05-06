@@ -19,7 +19,7 @@ module Mastermind
       it "starts with a guess counter at 0" do
         game.start
 
-        expect(game.number_of_guesses).to eq(0)
+        expect(game.number_of_turns).to eq(0)
       end
     end
 
@@ -33,7 +33,7 @@ module Mastermind
       end
 
       it "is game over when there are 10 guesses" do
-        expect(game.over?(Game::MAX_GUESSES, 0)).to be true
+        expect(game.over?(Game::MAX_TURNS, 0)).to be true
       end
 
     end

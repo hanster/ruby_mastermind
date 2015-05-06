@@ -45,6 +45,7 @@ module Mastermind
     def lose_message
       output.puts(LOSE_MESSAGE)
     end
+
     private
 
     attr_reader :output, :input
