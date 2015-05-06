@@ -3,7 +3,6 @@ require 'mastermind/display'
 require 'mastermind/mock/input'
 
 module Mastermind
-
   describe Display do
     let(:output) { StringIO.new }
     let(:input) { Mastermind::Mock::Input.new }
@@ -18,7 +17,7 @@ module Mastermind
       it "displays the guess message" do
         guess = "RRRR"
         number_of_guesses = 1
-        display.guess_message(guess, number_of_guesses)
+        display.guess_message(guess.split(''), number_of_guesses)
         expect(output.string).to start_with("1: Player guess is: " + guess)
       end
 
@@ -28,21 +27,20 @@ module Mastermind
       end
     end
 
-    describe "#get_exact_matches" do
+    describe "#prompt_exact_matches" do
       it "outputs a prompt before getting user input" do
         input.inputs = ['4']
-        expect(display.get_exact_matches).to eq(4)
+        expect(display.prompt_exact_matches).to eq(4)
         expect(output.string).to start_with("Enter the exact number of matches: ")
       end
     end
 
-    describe "#get_unexact_matches" do
+    describe "#prompt_unexact_matches" do
       it "outputs a prompt before getting user input" do
         input.inputs = ['4']
-        expect(display.get_unexact_matches).to eq(4)
+        expect(display.prompt_unexact_matches).to eq(4)
         expect(output.string).to start_with("Enter the unexact number of matches: ")
       end
     end
-
   end
 end

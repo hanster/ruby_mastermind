@@ -1,3 +1,6 @@
+require 'mastermind/display'
+require 'mastermind/random_ai'
+
 module Mastermind
   class Game
     MAX_GUESSES = 10
@@ -20,8 +23,8 @@ module Mastermind
     def play_turn
       next_guess = guess
       display.guess_message(next_guess, number_of_guesses)
-      @current_exact_matches = display.get_exact_matches
-      @current_unexact_matches = display.get_unexact_matches
+      @current_exact_matches = display.prompt_exact_matches
+      @current_unexact_matches = display.prompt_unexact_matches
     end
 
     def over? (number_of_guesses, exact_matches)
@@ -41,7 +44,5 @@ module Mastermind
       @number_of_guesses += 1
       ai_guesser.next_guess(current_exact_matches, current_unexact_matches)
     end
-
   end
-  
 end

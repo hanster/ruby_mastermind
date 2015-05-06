@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'mastermind/game_loop'
 
 module Mastermind
-
   class TestGame
     attr_reader :turn_played
     attr_reader :play_turn_count, :start_count
@@ -26,11 +25,9 @@ module Mastermind
     def start
       @start_count += 1
     end
-
   end
 
   describe GameLoop do
-
     let (:game) { TestGame.new }
     let(:game_loop) { GameLoop.new(game) }
 
@@ -43,16 +40,13 @@ module Mastermind
 
     it "does nothing when the game is stopped" do
       set_up_number_times_to_loop(game, 0)
-
       game_loop.run
 
       expect(game.turn_played).to be false
-
     end
     
     it "runs play_turn once before the game is stopped" do
       set_up_number_times_to_loop(game, 1)
-
       game_loop.run
 
       expect(game.turn_played).to be true
@@ -61,7 +55,6 @@ module Mastermind
     
     it "plays a turn until the game is no longer running" do
       set_up_number_times_to_loop(game, 2)
-      
       game_loop.run
 
       expect(game.play_turn_count).to be(2)
@@ -69,7 +62,6 @@ module Mastermind
 
     it "starts the game before the game loop" do
       set_up_number_times_to_loop(game, 0)
-
       game_loop.run
 
       expect(game.start_count).to be (1)
