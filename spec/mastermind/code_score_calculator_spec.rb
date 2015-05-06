@@ -9,6 +9,8 @@ module Mastermind
       ScoringFeedback.new(exact, unexact)
     end
 
+    # introduce concept of a guess? instead of using strings and splitting?
+
     describe "#score" do
       it "returns feedback of [1, 0] when there is only 1 exact match" do 
         expect(code_score_calculator.score('RBYO'.split(''), 'RPPP'.split(''))).to eq(feedback(1, 0))

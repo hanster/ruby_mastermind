@@ -8,19 +8,18 @@ module Mastermind
     let(:code_score_calc) { CodeScoreCalculator.new }
     let(:feedback) { ScoringFeedback.new(0, 0) }
 
-    it "starts with an initial guess of 'RRGG'" do
-      expect(ai.next_guess(feedback)).to eq('RRGG'.split(''))
+    def generate_random_code
+      Guess::ALL_PERMUTATIONS.to_a.sample
     end
 
-    it "second next guess is in in the set of all guesses" do
-      ai.next_guess(feedback)
+    it "next guess is in in the set of all guesses" do
       expect(Guess::ALL_PERMUTATIONS).to include(ai.next_guess(feedback))
     end
 
     it "works out the correct answer in under 10 guesses" do
-      code = 'RBPO'.split('')
+      code = generate_random_code
       guess_correct = false
-      feedback = ScoringFeedback.new(0, 0)
+      feedback = ScoringFeedback.new(-1, -1)
       guess = ai.next_guess(feedback)
       number_of_guesses = 1
 
@@ -33,7 +32,7 @@ module Mastermind
           number_of_guesses += 1
         end
       end
-
+      puts number_of_guesses
       expect(number_of_guesses).to be < 10
     end
   end
