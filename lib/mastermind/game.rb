@@ -1,10 +1,11 @@
 require 'mastermind/display'
 require 'mastermind/random_ai'
+require 'mastermind/guess'
 
 module Mastermind
   class Game
     MAX_GUESSES = 10
-    EXACT_MATCHES_WIN = 4
+    EXACT_MATCHES_WIN = Guess::LENGTH
     attr_reader :number_of_guesses
 
     def initialize (display = Display.new, ai = RandomAI.new)
@@ -42,7 +43,7 @@ module Mastermind
 
     def guess
       @number_of_guesses += 1
-      ai_guesser.next_guess(current_exact_matches, current_unexact_matches)
+      ai_guesser.next_guess(ScoringFeedback.new(current_exact_matches, current_unexact_matches))
     end
   end
 end

@@ -2,12 +2,12 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'mastermind/display'
-require 'mastermind/minimax_ai'
+require 'mastermind/score_filter_ai'
 require 'mastermind/game'
 require 'mastermind/game_loop'
 
 display = Mastermind::Display.new
-ai = Mastermind::MinimaxAi.new
+ai = Mastermind::ScoreFilterAi.new
 game = Mastermind::Game.new(display,ai)
 game_loop = Mastermind::GameLoop.new(game)
 game_loop.run

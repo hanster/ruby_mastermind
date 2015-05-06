@@ -4,7 +4,7 @@ module Mastermind
 
   class RandomAI
 
-    def next_guess(exact_matches, unexact_matches)
+    def next_guess(feedback)
       guess = ''
       4.times do
         guess += Guess::COLOURS.sample
