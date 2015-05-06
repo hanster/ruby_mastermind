@@ -76,5 +76,33 @@ module Mastermind
 
       expect(game.running?).to be true
     end
+
+    describe "#end_game" do
+      it "calls the display thanks for playing method" do
+        game.end_game
+        expect(mock_display.thanks_message_times_called).to eq(1)
+      end
+
+      it "calls display win message when correctly guess in 10" do
+        game = Game.new(mock_display, mock_ai)
+        9.times { game.play_turn}
+        mock_display.set_exact_matches(4)
+        game.play_turn
+
+        expect(mock_ai.next_guess_times_called).to eq(10)
+        game.end_game
+        expect(mock_display.win_message_times_called).to eq(1)
+      end
+
+      it "calls the computer failed message if it didn't guess correctly in 10 guesses" do
+        game = Game.new(mock_display, mock_ai)
+        mock_display.set_exact_matches(0)
+        10.times { game.play_turn }
+
+        game.end_game
+        expect(mock_display.win_message_times_called).to eq(0)
+        expect(mock_display.lose_message_times_called).to eq(1)
+      end
+    end
   end
 end

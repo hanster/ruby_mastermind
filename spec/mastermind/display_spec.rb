@@ -54,5 +54,26 @@ module Mastermind
         expect(display.prompt_unexact_matches).to eq(4)
       end
     end
+
+    describe "#thanks_message" do
+      it "sends the thanks for playing message" do
+        display.thanks_message
+        expect(output.string).to start_with("Thanks for playing.")
+      end
+    end
+
+    describe "#win_message" do
+      it "sends the win message" do
+        display.win_message
+        expect(output.string).to start_with("The computer correctly guessed!")
+      end
+    end
+
+    describe "#lose_message" do
+      it "sends the lose message" do
+        display.lose_message
+        expect(output.string).to start_with("The computer failed to correctly guess your code!")
+      end
+    end
   end
 end

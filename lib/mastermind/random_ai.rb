@@ -2,12 +2,12 @@ require 'mastermind/guess'
 
 module Mastermind
 
-  class RandomAI
+  class RandomAi
 
     def next_guess(feedback)
-      guess = ''
+      guess = []
       4.times do
-        guess += Guess::COLOURS.sample
+      guess << Guess::COLOURS.sample
       end
       guess
     end
